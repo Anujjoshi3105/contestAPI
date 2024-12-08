@@ -12,7 +12,7 @@ const getLeetcodeRating = async (username) => {
       variables: { username },
     };
     const response = await axios.post(url, payload);
-    return response.data.data.userContestRanking?.rating || "Unrated";
+    return parseInt(response.data.data.userContestRanking?.rating) || "Unrated";
   } catch {
     return "Error fetching LeetCode rating";
   }
