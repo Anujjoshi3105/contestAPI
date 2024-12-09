@@ -7,8 +7,8 @@ const getGfgRating = async (username) => {
 
     const currentRating =
       response.data?.pageProps?.contestData?.user_contest_data?.current_rating;
-
-    return currentRating || "Unrated";
+    const level = response.data?.pageProps?.contestData?.user_stars;
+    return { rating: currentRating, level: level } || "Unrated";
   } catch (error) {
     console.error(error);
     return "Error fetching GFG rating";

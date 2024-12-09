@@ -20,9 +20,9 @@ router.get("/ratings", validateUsername, async (req, res) => {
     res.json({
       username,
       codeforces,
-      codechef,
+      codechef: codechef,
       leetcode,
-      gfg,
+      gfg: gfg,
     });
   } catch (error) {
     res.status(500).json({ error: "Error fetching ratings" });
@@ -52,7 +52,7 @@ router.get("/ratings/:platform", validateUsername, async (req, res) => {
         return res.status(400).json({ error: "Invalid platform" });
     }
 
-    res.json({ platform, username, rating });
+    res.json({ platform, username, ...rating });
   } catch (error) {
     res.status(500).json({ error: `Error fetching ${platform} rating` });
   }

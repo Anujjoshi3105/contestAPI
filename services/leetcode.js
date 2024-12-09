@@ -4,15 +4,20 @@ const getLeetcodeRating = async (username) => {
   try {
     const url = "https://leetcode.com/graphql";
     const payload = {
-      query: `query getUserContestRanking($username: String!) {
-                    userContestRanking(username: $username) {
-                        rating
-                    }
-                }`,
+      query: `
+        query getUserContestRanking($username: String!) {
+          userContestRanking(username: $username) {
+            rating
+          }
+        }`,
       variables: { username },
     };
+
     const response = await axios.post(url, payload);
-    return parseInt(response.data.data.userContestRanking?.rating) || "Unrated";
+
+    const rating = response.data.data.userContestRanking?.rating;
+
+    return rating ? { rating } : "Error fetching LeetCode rating";
   } catch {
     return "Error fetching LeetCode rating";
   }
