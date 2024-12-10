@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const getGfgUserData = async (username) => {
+const getGfgRating = async (username) => {
   try {
     const url = `https://www.geeksforgeeks.org/user/${username}/`;
     const response = await axios.get(url);
@@ -28,4 +28,7 @@ const getGfgUserData = async (username) => {
   }
 };
 
-module.exports = { getGfgUserData };
+module.exports = { getGfgRating };
+getGfgRating("anujjoshi31")
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
