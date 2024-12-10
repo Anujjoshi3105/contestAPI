@@ -15,7 +15,9 @@ const getLeetcodeRating = async (username) => {
 
     const response = await axios.post(url, payload);
     const rating = parseInt(response.data.data.userContestRanking?.rating);
-    return rating ? { rating } : "Error fetching LeetCode rating";
+    return rating
+      ? { rating, level: "newbie" }
+      : "Error fetching LeetCode rating";
   } catch {
     return "Error fetching LeetCode rating";
   }

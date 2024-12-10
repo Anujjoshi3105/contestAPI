@@ -1,18 +1,31 @@
 const axios = require("axios");
+const cheerio = require("cheerio");
 
-const getGfgRating = async (username) => {
+const getGfgUserData = async (username) => {
   try {
-    const url = `https://www.geeksforgeeks.org/gfg-assets/_next/data/dX3EgTGxuE9nkX1iYmSx6/user/${username}.json`;
+    const url = `https://www.geeksforgeeks.org/user/${username}/`;
     const response = await axios.get(url);
 
-    const currentRating =
-      response.data?.pageProps?.contestData?.user_contest_data?.current_rating;
-    const level = response.data?.pageProps?.contestData?.user_stars;
-    return { rating: currentRating, level: `${level} star` } || "Unrated";
+    const $ = cheerio.load(response.data);
+
+    const scriptContent = $("script#__NEXT_DATA__").html();
+
+    if (scriptContent) {
+      const jsonData = JSON.parse(scriptContent);
+
+      const currentRating =
+        jsonData?.props?.pageProps?.contestData?.user_contest_data
+          ?.current_rating;
+      const level = jsonData?.props?.pageProps?.contestData?.user_stars;
+
+      return { rating: currentRating, level: `${level} star` } || "Unrated";
+    } else {
+      return "Script tag with JSON data not found";
+    }
   } catch (error) {
-    console.error(error);
-    return "Error fetching GFG rating";
+    console.error("Error fetching or parsing data:", error);
+    return "Error fetching GFG user data";
   }
 };
 
-module.exports = { getGfgRating };
+module.exports = { getGfgUserData };
