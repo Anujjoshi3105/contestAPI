@@ -10,7 +10,8 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 
-app.use("/api", ratingsRoutes);
+app.use("/", ratingsRoutes);
+app.use("*", (req, res) => res.status(404).json({ error: "Not found" }));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

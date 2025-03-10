@@ -3,6 +3,7 @@ const { getCodeforcesRating } = require("../services/codeforces");
 const { getCodechefRating } = require("../services/codechef");
 const { getLeetcodeRating } = require("../services/leetcode");
 const { getGfgRating } = require("../services/gfg");
+const { getAtcoderRating } = require("../services/atcoder");
 const validateUsername = require("../middlewares/validate");
 
 const router = express.Router();
@@ -47,6 +48,9 @@ router.get("/ratings/:platform", validateUsername, async (req, res) => {
         break;
       case "gfg":
         rating = await getGfgRating(username);
+        break;
+      case "atcoder":
+        rating = await getAtcoderRating(username);
         break;
       default:
         return res.status(400).json({ error: "Invalid platform" });

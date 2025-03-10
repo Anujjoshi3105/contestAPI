@@ -1,18 +1,27 @@
 const axios = require("axios");
 
 const getCodeforcesRating = async (username) => {
-  try {
-    const url = `https://codeforces.com/api/user.info?handles=${username}`;
-    const response = await axios.get(url);
-    const rating = response.data.result[0].rating;
-    const level = response.data.result[0].rank;
-    const maxRating = response.data.result[0].maxRating;
-    const maxLevel = response.data.result[0].maxRank;
+  const url = `https://codeforces.com/api/user.info?handles=${username}`;
 
-    return { rating, level, maxRating, maxLevel } || "Unrated";
-  } catch {
-    return "Error fetching Codeforces rating";
+  try {
+    const { data } = await axios.get(url);
+    const user = data.result[0];
+
+    return {
+      username: username,
+      platform: "codeforces",
+      rating: user.rating || "Unrated",
+      level: user.rank || "Unrated",
+      max_rating: user.maxRating || "Unrated",
+      max_level: user.maxRank || "Unrated",
+    };
+  } catch (error) {
+    return {
+      error: "Error fetching Codeforces rating. Check username or network.",
+    };
   }
 };
+
+getCodeforcesRating("anujjoshi3105").then(console.log).catch(console.error);
 
 module.exports = { getCodeforcesRating };

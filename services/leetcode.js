@@ -1,13 +1,14 @@
 const axios = require("axios");
 
 const getLeetcodeRating = async (username) => {
+  const url = "https://leetcode.com/graphql";
   try {
-    const url = "https://leetcode.com/graphql";
     const payload = {
       query: `
         query getUserContestRanking($username: String!) {
           userContestRanking(username: $username) {
-            rating
+            rating,
+            attendedContestsCount
           }
         }`,
       variables: { username },
@@ -15,12 +16,22 @@ const getLeetcodeRating = async (username) => {
 
     const response = await axios.post(url, payload);
     const rating = parseInt(response.data.data.userContestRanking?.rating);
+    const contests_participated = parseInt(
+      response.data.data.userContestRanking?.attendedContestsCount
+    );
     return rating
-      ? { rating, level: "newbie" }
-      : "Error fetching LeetCode rating";
+      ? {
+          username: username,
+          platform: "leetcode",
+          rating,
+          contests_participated,
+          level: "newbie",
+        }
+      : { error: "Error fetching LeetCode rating" };
   } catch {
-    return "Error fetching LeetCode rating";
+    return { error: "Error fetching LeetCode rating" };
   }
 };
 
+getLeetcodeRating("anujjoshi3105").then(console.log).catch(console.error);
 module.exports = { getLeetcodeRating };

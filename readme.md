@@ -1,6 +1,6 @@
 # Contest API
 
-This API provides users with the ability to fetch competitive programming contest ratings across multiple platforms, including Codeforces, Codechef, Leetcode, and GFG. It supports fetching ratings for individual platforms or all platforms at once via RESTful endpoints.
+This API provides users with the ability to fetch competitive programming contest ratings across multiple platforms, including Codeforces, Codechef, Leetcode, Atcoder and GFG. It supports fetching ratings for individual platforms or all platforms at once via RESTful endpoints.
 
 ## Features
 
@@ -11,6 +11,7 @@ This API provides users with the ability to fetch competitive programming contes
 
 ## Supported Platforms
 
+- **Atcoder**
 - **Codeforces**
 - **Codechef**
 - **Leetcode**
@@ -20,7 +21,7 @@ This API provides users with the ability to fetch competitive programming contes
 
 ### 1. `GET /ratings`
 
-Fetches ratings from all supported platforms (Codeforces, Codechef, Leetcode, GFG) for a given username.
+Fetches ratings from all supported platforms (Atcoder, Codeforces, Codechef, Leetcode, GFG) for a given username.
 
 #### Request Example:
 
@@ -36,7 +37,8 @@ GET /ratings?username=your_username
   "codeforces": 1600,
   "codechef": 1500,
   "leetcode": 1300,
-  "gfg": 1200
+  "gfg": 1200,
+  "atcoder": 1300
 }
 ```
 
@@ -92,31 +94,14 @@ If there’s an issue fetching the rating:
 
 - Plan to add support for additional competitive programming platforms such as HackerRank, TopCoder, or others.
 
-### 2. **Rate Calculation Enhancements**
-
-- Implement advanced rating calculation algorithms to provide a more accurate rating system across platforms.
-
-### 3. **User Profiles**
-
-- Support for fetching user profiles along with their ratings, including number of problems solved, rank, and contest history.
-
-### 4. **Cache and Performance Optimization**
+### 2. **Cache and Performance Optimization**
 
 - Implement caching mechanisms to reduce the number of API requests to external services and improve response times.
-
-### 5. **Authentication**
-
-- Add user authentication for more personalized features and account management.
 
 ## Requirements
 
 - Node.js (v14 or later)
 - Express.js
-- External services for fetching ratings:
-  - Codeforces
-  - Codechef
-  - Leetcode
-  - GFG
 
 ## Setup
 
