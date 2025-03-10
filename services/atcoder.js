@@ -1,6 +1,25 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+function getLevel(rating) {
+  if (rating >= 2800) {
+    return "Red";
+  } else if (rating >= 2400) {
+    return "Orange";
+  } else if (rating >= 2000) {
+    return "Yellow";
+  } else if (rating >= 1600) {
+    return "Blue";
+  } else if (rating >= 1200) {
+    return "Cyan";
+  } else if (rating >= 800) {
+    return "Green";
+  } else if (rating >= 400) {
+    return "Brown";
+  } else {
+    return "Gray";
+  }
+}
 async function getAtcoderRating(username) {
   const url = `https://atcoder.jp/users/${username}`;
 
@@ -15,13 +34,19 @@ async function getAtcoderRating(username) {
         .replace(/\s+/g, " ")
         .trim() || "N/A";
 
+    const rating = parseInt(extractText("Rating").split(" ")[0]);
+    const max_rating = parseInt(extractText("Highest Rating").split(" ")[0]);
+    const rank = extractText("Rank");
+    const contests_participated = parseInt(extractText("Rated Matches"));
+
     return {
       username: username,
       platform: "atcoder",
-      rating: parseInt(extractText("Rating").split(" ")[0]),
-      max_rating: parseInt(extractText("Highest Rating").split(" ")[0]),
-      rank: extractText("Rank"),
-      contests_participated: parseInt(extractText("Rated Matches")),
+      rating: rating,
+      max_rating: max_rating,
+      rank: rank,
+      contests_participated: contests_participated,
+      level: getLevel(rating),
     };
   } catch (error) {
     console.error(
