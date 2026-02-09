@@ -36,7 +36,7 @@ RUN pnpm install --prod --frozen-lockfile
 COPY --from=builder /app/dist ./dist
 
 # Expose the application port
-EXPOSE 3000
+EXPOSE 7860
 
 # Start the application
 CMD ["pnpm", "start"]

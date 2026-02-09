@@ -4,14 +4,14 @@ services:
   api:
     build: .
     ports:
-      - "${PORT:-3000}:${PORT:-3000}"
+      - "${PORT:-7860}:${PORT:-7860}"
     env_file:
       - .env
     environment:
       - NODE_ENV=production
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "wget", "-qO-", "http://localhost:${PORT:-3000}/health" ]
+      test: [ "CMD", "wget", "-qO-", "http://localhost:${PORT:-7860}/health" ]
       interval: 30s
       timeout: 10s
       retries: 3

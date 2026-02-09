@@ -4,7 +4,7 @@ emoji: 🌀
 colorFrom: indigo
 colorTo: purple
 sdk: docker
-app_port: 3000
+app_port: 7860
 pinned: false
 ---
 
@@ -526,10 +526,10 @@ The following improvements are recommended for production-grade deployments at s
 
 ```bash
 # Test single platform
-curl "http://localhost:3000/api/v1/leetcode/rating?username=tourist"
+curl "http://localhost:7860/api/v1/leetcode/rating?username=tourist"
 
 # Test aggregator
-curl "http://localhost:3000/api/v1/ratings?username=tourist"
+curl "http://localhost:7860/api/v1/ratings?username=tourist"
 ```
 
 ### MCP Tool Testing
