@@ -1,6 +1,16 @@
-# Vortex CP
+---
+title: Vortex
+emoji: 🌀
+colorFrom: indigo
+colorTo: purple
+sdk: docker
+app_port: 3000
+pinned: false
+---
 
-A high-speed, vertical-slice aggregator for competitive programming metrics. Vortex CP unifies data from LeetCode, Codeforces, CodeChef, AtCoder, and GeeksforGeeks into a single, modular API layer. Built for modern web applications and AI agents via the **Model Context Protocol (MCP)**.
+# Vortex
+
+A high-speed, vertical-slice aggregator for competitive programming metrics. Vortex unifies data from LeetCode, Codeforces, CodeChef, AtCoder, and GeeksforGeeks into a single, modular API layer. Built for modern web applications and AI agents via the **Model Context Protocol (MCP)**.
 
 ---
 
